@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocketIO Flask Python Chat</title>
+</head>
+<body>
+    <h1>SocketIO Flask Python Chat</h1>
+    <ul id="mensajes"></ul>
+    <input type="text" id="miMensaje">
+    <button type="button" id="enviar">Enviar</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <script>
+        const socket = io();
+        socket.emit('message', 'Hola desde el servidor');
+        socket.on('message', (msg) => {
+            $('#mensajes').append('<li>' + msg + '</li>')
+        });
+        $('#enviar').on('click', () => {
+            socket.send($('#miMensaje').val());
+            $('#miMensaje').val('');
+        });
+    </script>
+</body>
+</html>
